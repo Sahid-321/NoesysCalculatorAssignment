@@ -6,7 +6,7 @@ export default function Main() {
     const [values, setValues]= useState([])
     const [operation, setOperation]= useState('')
     const [newValues, setNewValues]= useState()
-
+    const [history, setHistory]= useState([])
     // button actions
     //console.log(values);
     function calculate(num1, num2, operation) {
@@ -25,6 +25,8 @@ export default function Main() {
       }
       
     useEffect(()=>{
+     //   setHistory([...history, displayData])
+        console.log(history, "history");
 values.map((elem)=>{
     if(operation == '/'){
         setNewValues(elem)
@@ -46,6 +48,7 @@ values.map((elem)=>{
       }
     const handlePercent = () => {
         setDisplayData([...displayData, "%"])
+        
     }
 
     const handleDivide = () => {
@@ -112,6 +115,8 @@ values.map((elem)=>{
       
         setDisplayData([...displayData, ` = ${result}`]);
         setTotal(result);
+
+     //setHistory([...history, displayData])
       }
       
 
