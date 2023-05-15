@@ -1,0 +1,17 @@
+.numberContaniner{
+border: solid 1px;
+display: grid;
+grid-template-columns: repeat(4,1fr);
+width: 400px;
+height: 500px;
+gap: 10px;
+
+}
+.numberContaniner button{
+    border-radius: 100px;
+   background-color: rgb(87, 84, 84);
+   color: white;
+   font-size: larger;
+   font-weight: bold;
+   cursor: pointer;
+}
