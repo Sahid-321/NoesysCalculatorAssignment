@@ -1,28 +1,65 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Main.css'
 export default function Main() {
     const [displayData, setDisplayData] = useState('')
-    const [total, setTotal]= useState('')
+    const [total, setTotal]= useState(0)
+    const [values, setValues]= useState([])
+    const [operation, setOperation]= useState('')
+    const [newValues, setNewValues]= useState()
+
     // button actions
-    console.log(displayData);
+    //console.log(values);
+    function calculate(num1, num2, operation) {
+        switch(operation) {
+          case '+':
+            return num1 + num2;
+          case '-':
+            return num1 - num2;
+          case 'x':
+            return num1 * num2;
+          case '/':
+            return num1 / num2;
+          default:
+            return 0;
+        }
+      }
+      
+    useEffect(()=>{
+values.map((elem)=>{
+    if(operation == '/'){
+        setNewValues(elem)
+        console.log(elem);
+    }
+   
+})
+    },[values])
+
     const handleC = () => {
         setDisplayData('')
     }
     const handleClear = () => {
-
-    }
+        setDisplayData('');
+        setTotal(0);
+        setValues([]);
+        setOperation('');
+        setNewValues();
+      }
     const handlePercent = () => {
         setDisplayData([...displayData, "%"])
     }
 
     const handleDivide = () => {
         setDisplayData([...displayData, "/"])
+       setOperation('/')
+      
     }
     const handleSeven = () => {
         setDisplayData([...displayData, "7"])
+        setValues([7])
     }
     const handleEight = () => {
         setDisplayData([...displayData, "8"])
+        setValues([8])
     }
     const handleNine = () => {
         setDisplayData([...displayData, "9"])
@@ -64,8 +101,19 @@ export default function Main() {
         setDisplayData([...displayData, "."])
     }
     const handleEqual = () => {
-        setDisplayData([...displayData, " = Total"])
-    }
+        const displayString = displayData.join('');
+        const numArr = displayString.split(/[\+\-\x\/]/g).map(Number);
+        const opArr = displayString.split('').filter(c => ['+', '-', 'x', '/'].includes(c));
+      
+        let result = numArr[0];
+        for(let i = 0; i < opArr.length; i++) {
+          result = calculate(result, numArr[i+1], opArr[i]);
+        }
+      
+        setDisplayData([...displayData, ` = ${result}`]);
+        setTotal(result);
+      }
+      
 
     return (
         <div className='container'>
